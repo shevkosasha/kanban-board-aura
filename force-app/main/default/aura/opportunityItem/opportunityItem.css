@@ -1,0 +1,9 @@
+.THIS {
+    padding: 0;
+    margin: 0;
+}
+.THIS .opp-item{
+    border: 1px solid red;
+    padding: 0;
+    margin: 0;
+}

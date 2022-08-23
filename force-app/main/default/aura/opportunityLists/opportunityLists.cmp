@@ -1,0 +1,34 @@
+<aura:component implements="force:appHostable" controller="OpportunityController">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="loaded" type="Boolean" default="false" />
+    <aura:attribute name="listLoaded" type="Boolean" default="false"/>
+    <aura:attribute name="stages" type="String[]"/>
+    <aura:attribute name="width" type="String"/>
+    <aura:attribute name="oppts" type="Opportunity[]"/>
+    <aura:if isTrue="{! v.loaded }">
+        <lightning:card>
+            <div  class="slds-gutters slds-box slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none stage-container" >
+                <lightning:layout >                
+                    <aura:iteration var="stage" items="{!v.stages}"> 
+                            <lightning:layoutItem class="stage-column" >
+                                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center items-box" 
+                                    id="{!'stage_' + stage}"
+                                    style="{!v.width }"  
+                                    data-stage="{!stage}" 
+                                    ondragenter="{!c.dragEnter}"
+                                    ondragleave="{!c.dragLeave}"
+                                    ondragover="{!c.dragOver}" 
+                                    ondrop="{!c.drop}">
+                                    <h1 class="stage_label">{!stage}</h1>
+                                    <c:opportunityByStageList aura:id="{!'stage_cmp_' + stage}" stage="{!stage}" oppts="{!v.oppts}" listLoaded="{! v.listLoaded }"/>
+                                </div>                        
+                            </lightning:layoutItem>
+                    </aura:iteration>
+                </lightning:layout>
+            </div>
+        </lightning:card>
+        <aura:set attribute="else">
+            <lightning:spinner alternativeText="Loading" />
+        </aura:set>
+    </aura:if>    
+</aura:component>

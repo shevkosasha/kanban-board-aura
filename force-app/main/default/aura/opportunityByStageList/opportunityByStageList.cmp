@@ -1,0 +1,17 @@
+<aura:component controller="OpportunityController">
+    <aura:attribute name="listLoaded" type="Boolean" />
+    <aura:attribute name="oppts" type="Opportunity[]"/>
+    <aura:attribute name="stage" type="String" />
+    <aura:if isTrue="{! v.listLoaded }">
+        <div id="{!'opp_list_' + v.stage}" class="opp-list" data-stage="{!v.stage}" >
+            <aura:iteration var="opp" items="{!v.oppts}">
+                <aura:if isTrue="{!opp.StageName==v.stage}">
+                    <c:opportunityItem opp="{!opp}" stage ="{!v.stage}"/>
+                </aura:if>        
+            </aura:iteration>
+        </div>
+        <aura:set attribute="else">
+            <lightning:spinner alternativeText="Loading" />
+        </aura:set>
+    </aura:if>        
+</aura:component>

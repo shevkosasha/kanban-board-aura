@@ -1,0 +1,29 @@
+<aura:component>
+    <aura:attribute name="opp" type="Opportunity" />  
+    <aura:attribute name="stage" type="String" required="false" description="" access="public"/>
+    <div id="{!'opp_' + v.opp.Id}" class="custom-box slds-box slds-p-around_medium slds-text-align_center opp-item" 
+        data-id="{!v.opp.Id}" 
+        data-stage="{!v.stage}" 
+        draggable="true" 
+        ondragstart="{!c.dragstart}"
+        >
+        <lightning:card variant="Narrow" title="{!v.opp.Name}" class="opp-item">
+            <p class="slds-truncate" title="{!v.opp.Name}">
+                <a href="#" data-id="{!v.opp.Id}"  onclick="{!c.doView}">
+                    <span class="slds-truncate" id="{!v.opp.AccountId}" data-id="{!v.opp.Id}">{!v.opp.Name}</span>
+                </a>
+            </p>
+            <aura:set attribute="footer">
+                <lightning:badge label="{!v.opp.Amount}"/>
+            </aura:set>
+            <p class="slds-p-horizontal_small">
+                CloseDate: {!v.opp.CloseDate}
+            </p>
+            <p class="slds-truncate" title="{!v.opp.Account.Name}">
+                <a href="#" data-id="{!v.opp.AccountId}"  onclick="{!c.doView}">
+                    <span class="slds-truncate" id="{!v.opp.AccountId}" data-id="{!v.opp.AccountId}">Account: {!v.opp.Account.Name}</span>
+                </a>
+            </p>
+        </lightning:card>
+    </div> 
+</aura:component>
